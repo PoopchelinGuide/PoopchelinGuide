@@ -8,9 +8,11 @@
     <link href="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.css" rel="stylesheet">
     <script src="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.js"></script>
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href=/static/style/style.css >
 </head>
 <body>
-<div style="display: flex; flex-direction: column; align-items: center">
+<div class="page">
+<div class="main_box">
 <h1 class="md-typescale-display-medium" th:text="${name}" id="firstTitle">Welcome Changui Page</h1>
     <button onclick="changeValue()">변경!</button>
     <div class="mdc-card" >
@@ -20,7 +22,7 @@
         </div>
         <!-- ... content ... -->
     </div>
-
+</div>
 </div>
 <style>
     form {
