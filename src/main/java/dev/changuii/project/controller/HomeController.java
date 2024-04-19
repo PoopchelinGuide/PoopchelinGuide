@@ -30,13 +30,9 @@ public class HomeController {
 
 
     @RequestMapping("/")
-    public String homepage(
-            @RequestParam("name") String name,
-            Model model){
+    public String homepage(Model model){
 
         model.addAttribute("tmapAppKey", this.tmapAppKey);
-        model.addAttribute("name", name+"의 홈페이지");
-        model.addAttribute("title", "My Home Page");
         return "index";
     }
 }

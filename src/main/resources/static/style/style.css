@@ -6,6 +6,7 @@ html {
     align-items: center;
     justify-content: center;
     background-color: #f0f0f0; /* 배경색 설정 */
+    overflow-y: hidden;
 }
 
 .page {
@@ -33,7 +34,7 @@ html {
 
 .header{
     width: 400px;
-    height: 100px;
+    height: 80px;
     position : fixed;
     align-items: center; /* 내부 내용 가운데 정렬 */
     justify-content: center;
@@ -45,12 +46,18 @@ html {
 
 .footer{
     width: 400px;
-    height: 80px;
+    height: 70px;
     position : fixed;
-    align-items: center; /* 내부 내용 가운데 정렬 */
-    justify-content: center;
-    bottom : 0;
+    display: flex;                    /* Flexbox 레이아웃 사용 */
+    justify-content: space-around;    /* 요소들 사이에 동일한 간격을 주어 나열 */
+    align-items: center;              /* 수직 중앙 정렬 */
+    bottom : 0px;
     background-color: lightgray; /* 중앙 영역의 배경색 */
     border-bottom-left-radius: 10px;
     border-bottom-right-radius: 10px;
+
+}
+
+i{
+    font-size: 30px;
 }
