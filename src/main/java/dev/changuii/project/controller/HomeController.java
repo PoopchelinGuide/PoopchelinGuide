@@ -1,5 +1,6 @@
 package dev.changuii.project.controller;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,6 +13,9 @@ import java.util.Map;
 
 @Controller
 public class HomeController {
+
+    @Value("${api.tmap}")
+    private String tmapAppKey;
 
 
     @GetMapping("/message")
@@ -30,6 +34,7 @@ public class HomeController {
             @RequestParam("name") String name,
             Model model){
 
+        model.addAttribute("tmapAppKey", this.tmapAppKey);
         model.addAttribute("name", name+"의 홈페이지");
         model.addAttribute("title", "My Home Page");
         return "index";
