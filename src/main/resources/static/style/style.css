@@ -28,4 +28,29 @@ html {
     justify-content: center;
     border-radius: 10px; /* 모서리 둥글게 */
     flex-direction: column;
+
+}
+
+.header{
+    width: 400px;
+    height: 100px;
+    position : fixed;
+    align-items: center; /* 내부 내용 가운데 정렬 */
+    justify-content: center;
+    top : 0;
+    background-color: midnightblue; /* 중앙 영역의 배경색 */
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}
+
+.footer{
+    width: 400px;
+    height: 80px;
+    position : fixed;
+    align-items: center; /* 내부 내용 가운데 정렬 */
+    justify-content: center;
+    bottom : 0;
+    background-color: lightgray; /* 중앙 영역의 배경색 */
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
 }

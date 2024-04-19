@@ -5,6 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="760c1af2-ee40-4330-9d93-1282f70e10cb" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/static/style/style.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/static/style/style.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/templates/thymeleaf/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/thymeleaf/index.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -53,6 +55,10 @@
     "git-widget-placeholder": "feat/mainpage",
     "kotlin-language-version-configured": "true",
     "last_opened_file_path": "C:/PoopchelinGuide",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
     "settings.editor.selected.configurable": "reference.settingsdialog.project.gradle",
     "vue.rearranger.settings.migration": "true"
@@ -83,7 +89,7 @@
       <option name="presentableId" value="Default" />
       <updated>1713539928390</updated>
       <workItem from="1713539929679" duration="289000" />
-      <workItem from="1713543080301" duration="283000" />
+      <workItem from="1713543080301" duration="912000" />
     </task>
     <servers />
   </component>
