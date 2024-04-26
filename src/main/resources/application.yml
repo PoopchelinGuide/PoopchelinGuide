@@ -39,7 +39,7 @@ spring:
     activate:
       on-profile: dev
   datasource:
-    url: jdbc:mariadb://localhost:3306/projectName?createDatabaseIfNotExist=true
+    url: jdbc:mariadb://localhost:3306/poopcheline?createDatabaseIfNotExist=true
     username: root
     password: 1234
     driver-class-name: org.mariadb.jdbc.Driver
