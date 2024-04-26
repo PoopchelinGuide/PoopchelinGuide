@@ -22,6 +22,10 @@ public class QGarbageBinEntity extends EntityPathBase<GarbageBinEntity> {
 
     public final StringPath address = createString("address");
 
+    public final NumberPath<Double> coordinateX = createNumber("coordinateX", Double.class);
+
+    public final NumberPath<Double> coordinateY = createNumber("coordinateY", Double.class);
+
     public final StringPath detail = createString("detail");
 
     public final NumberPath<Long> id = createNumber("id", Long.class);

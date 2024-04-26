@@ -17,6 +17,8 @@ public class GarbageBinEntity {
     private long id;
 
     private String address;
+    private double coordinateX;
+    private double coordinateY;
     private String detail;
     private String type;
 

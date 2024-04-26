@@ -34,6 +34,8 @@ public class QReviewEntity extends EntityPathBase<ReviewEntity> {
 
     public final NumberPath<Integer> rate = createNumber("rate", Integer.class);
 
+    public final ListPath<String, StringPath> tag = this.<String, StringPath>createList("tag", String.class, StringPath.class, PathInits.DIRECT2);
+
     public final QToiletEntity toilet;
 
     public QReviewEntity(String variable) {
