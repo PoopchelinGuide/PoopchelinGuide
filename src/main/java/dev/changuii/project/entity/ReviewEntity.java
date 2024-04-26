@@ -6,7 +6,11 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-@Entity @Builder @Getter @AllArgsConstructor @NoArgsConstructor
+import java.util.ArrayList;
+import java.util.List;
+
+@Entity @Builder @Getter
+@AllArgsConstructor @NoArgsConstructor
 public class ReviewEntity {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -20,6 +24,9 @@ public class ReviewEntity {
 
     @Lob
     private String content;
+
+    @ElementCollection
+    private List<String> tag = new ArrayList<>();
 
     @ManyToOne
     @JoinColumn(name = "TOILET_ID")
