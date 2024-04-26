@@ -14,13 +14,13 @@ public class ToiletEntity {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "TOILET_ID")
-    private long id;
+    private Long id;
 
     private String name;
 
-    private double coordinateX;
+    private Double coordinateX;
 
-    private double coordinateY;
+    private Double coordinateY;
 
     @OneToMany(mappedBy = "toilet", orphanRemoval = true, cascade = CascadeType.REMOVE)
     private List<ReviewEntity> reviews = new ArrayList<>();

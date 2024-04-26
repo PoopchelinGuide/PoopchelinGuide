@@ -8,6 +8,8 @@ import dev.changuii.project.repository.ToiletRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 public class ToiletDAOImpl implements ToiletDAO {
 
@@ -17,6 +19,12 @@ public class ToiletDAOImpl implements ToiletDAO {
             @Autowired ToiletRepository toiletRepository
     ){
         this.toiletRepository = toiletRepository;
+    }
+
+
+    @Override
+    public void createToilet(ToiletEntity toilet) {
+        this.toiletRepository.save(toilet);
     }
 
     @Override
