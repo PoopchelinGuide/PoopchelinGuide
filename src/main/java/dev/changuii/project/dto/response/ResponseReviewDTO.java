@@ -7,6 +7,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Builder @Getter @NoArgsConstructor @AllArgsConstructor
@@ -20,6 +21,7 @@ public class ResponseReviewDTO {
     private String content;
     private ToiletDTO toiletDTO;
     private GarbageBinDTO garbageBinDTO;
+    private LocalDateTime writeDate;
 
 
 }

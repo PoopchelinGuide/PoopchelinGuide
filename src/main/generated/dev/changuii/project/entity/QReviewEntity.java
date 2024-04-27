@@ -38,6 +38,8 @@ public class QReviewEntity extends EntityPathBase<ReviewEntity> {
 
     public final QToiletEntity toilet;
 
+    public final DateTimePath<java.time.LocalDateTime> writeDate = createDateTime("writeDate", java.time.LocalDateTime.class);
+
     public QReviewEntity(String variable) {
         this(ReviewEntity.class, forVariable(variable), INITS);
     }

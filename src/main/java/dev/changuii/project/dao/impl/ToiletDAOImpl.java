@@ -32,4 +32,10 @@ public class ToiletDAOImpl implements ToiletDAO {
         return this.toiletRepository.findById(id)
                 .orElseThrow(DataNotFoundException::new);
     }
+
+    @Override
+    public List<ToiletEntity> readAllByBoxRange(Double x1, Double x2, Double y1, Double y2) {
+        return this.toiletRepository
+                .findAllByCoordinateXBetweenAndCoordinateYBetween(x1, x2, y1, y2);
+    }
 }

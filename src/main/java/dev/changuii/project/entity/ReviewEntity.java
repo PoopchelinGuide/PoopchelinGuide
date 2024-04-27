@@ -12,6 +12,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,6 +28,8 @@ public class ReviewEntity {
     private String password;
 
     private int rate;
+
+    private LocalDateTime writeDate;
 
     @Lob
     private String content;
@@ -63,6 +66,7 @@ public class ReviewEntity {
                 .nickname(reviewEntity.getNickname())
                 .rate(reviewEntity.getRate())
                 .tag(reviewEntity.getTag())
+                .writeDate(reviewEntity.getWriteDate())
                 .content(reviewEntity.getContent()).build();
 
         // todo : toilet, garbagebin 도 넣어야함
@@ -71,10 +75,11 @@ public class ReviewEntity {
     public ReviewEntity updateReview(ReviewDTO after){
         return ReviewEntity.builder()
                 // 수정 불가
-                .id(this.getId())
-                .nickname(this.getNickname())
-                .password(this.getPassword())
-                .rate(this.getRate())
+                .id(this.id)
+                .nickname(this.nickname)
+                .password(this.password)
+                .rate(this.rate)
+                .writeDate(this.writeDate)
 
                 // 수정 가능
                 .tag(after.getTag())
