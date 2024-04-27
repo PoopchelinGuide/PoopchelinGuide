@@ -67,7 +67,7 @@ public class DataServiceImpl implements DataService {
         Sheet sheet = workbook.getSheetAt(0); // 엑셀 시트 지정, 메인 시트값은 0번
 
         for (Row row : sheet) { //시트의 행을 모두 봄
-            if (row.getRowNum() == 0) continue; // 헤더 스킵
+            if (row.getRowNum() < 6) continue; // 헤더 스킵
 
             System.out.println(row.getCell(2));
 
