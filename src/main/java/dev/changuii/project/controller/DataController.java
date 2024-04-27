@@ -1,13 +1,12 @@
 package dev.changuii.project.controller;
 
 
-import dev.changuii.project.repository.DataService;
+import dev.changuii.project.service.DataService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import java.io.IOException;
 import java.net.URISyntaxException;
 
 @RestController
@@ -27,6 +26,12 @@ public class DataController {
     public ResponseEntity<?> getToiletData() throws URISyntaxException {
         this.dataService.storeToiletOpenAPIData();
         return ResponseEntity.status(200).body("asd");
+    }
+
+    @GetMapping("/garbage")
+    public ResponseEntity<?> getGarbageBinData() throws IOException {
+        this.dataService.readExcelData();
+        return ResponseEntity.status(200).body("garbage");
     }
 
 

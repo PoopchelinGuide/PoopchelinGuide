@@ -6,4 +6,5 @@ public interface GarbageBinDAO {
 
 
     public GarbageBinEntity readByIdGarbageBin(Long id);
+    void createGarbageBin(GarbageBinEntity garbageBinEntity);
 }

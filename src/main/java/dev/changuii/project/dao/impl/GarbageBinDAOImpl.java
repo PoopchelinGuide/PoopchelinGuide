@@ -19,6 +19,10 @@ public class GarbageBinDAOImpl implements GarbageBinDAO {
     }
 
     @Override
+    public void createGarbageBin(GarbageBinEntity garbageBinEntity){
+        this.garbageBinRepository.save(garbageBinEntity);
+    }
+    @Override
     public GarbageBinEntity readByIdGarbageBin(Long id) {
         return this.garbageBinRepository.findById(id)
                 .orElseThrow(DataNotFoundException::new);
