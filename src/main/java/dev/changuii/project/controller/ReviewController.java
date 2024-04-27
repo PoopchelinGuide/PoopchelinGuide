@@ -21,21 +21,18 @@ public class ReviewController {
         this.reviewService = reviewService;
     }
     @PostMapping
-    @RequestMapping("/save")
     public ResponseEntity<?> createReview(@RequestBody ReviewDTO reviewDTO){
         ResponseReviewDTO createReview = reviewService.createReview(reviewDTO);
         return ResponseEntity.status(HttpStatus.CREATED).body(createReview);
     }
 
-    @GetMapping
-    @RequestMapping("/read/{id}")
+    @GetMapping("/{id}")
     public ResponseEntity<?> readReview(@PathVariable Long id){
         ResponseReviewDTO readReview = reviewService.readReivew(id);
         return ResponseEntity.status(HttpStatus.OK).body(readReview);
     }
 
-    @PatchMapping
-    @RequestMapping("/update/{id}")
+    @PatchMapping("/{id}")
     public ResponseEntity<?> updateReview(@PathVariable Long id,
                                           @RequestBody ReviewDTO reviewDTO){
         ResponseReviewDTO updateReview = reviewService.updateReview(id,reviewDTO);
@@ -43,8 +40,7 @@ public class ReviewController {
         return ResponseEntity.status(HttpStatus.OK).body(updateReview);
     }
 
-    @DeleteMapping
-    @RequestMapping("/delete/{id}")
+    @DeleteMapping("/{id}")
     public void deleteReview(@PathVariable Long id){
         reviewService.deleteReview(id);
     }
