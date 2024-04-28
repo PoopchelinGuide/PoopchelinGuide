@@ -9,4 +9,5 @@ public interface ToiletService {
 
     public List<ToiletDTO> readAllByBoxRange(Double x1, Double x2, Double y1, Double y2);
 
+    //ToiletDTO findNearestToilet(Double x1,Double x2, Double y1, Double y2);
 }

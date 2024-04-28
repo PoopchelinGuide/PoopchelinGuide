@@ -69,7 +69,6 @@ public class DataServiceImpl implements DataService {
         }
 
     }
-
     @Override
     public void readExcelData() throws IOException, URISyntaxException {
         String ncpId =  "rnl7q9733x";
@@ -96,17 +95,19 @@ public class DataServiceImpl implements DataService {
                     HttpMethod.GET,
                     new HttpEntity<>(headers),
                     LinkedHashMap.class);
+            try {
+                LinkedHashMap result = (LinkedHashMap) ((List) response.getBody().get("addresses")).get(0);
 
-            LinkedHashMap result = (LinkedHashMap) ((List)response.getBody().get("addresses")).get(0);
+                GarbageBinEntity garbageBinEntity = GarbageBinEntity.builder(). // 빌더로 속성 값 설정
+                        coordinateX(Double.parseDouble(result.get("x").toString())).
+                        coordinateY(Double.parseDouble(result.get("y").toString())).
+                        address(row.getCell(2).getStringCellValue()).
+                        detail(row.getCell(3).getStringCellValue()).
+                        type(row.getCell(5).getStringCellValue()).build();
 
-            GarbageBinEntity garbageBinEntity = GarbageBinEntity.builder(). // 빌더로 속성 값 설정
-                    coordinateX(Double.parseDouble(result.get("x").toString())).
-                    coordinateY(Double.parseDouble(result.get("y").toString())).
-                    address(row.getCell(2).getStringCellValue()).
-                    detail(row.getCell(3).getStringCellValue()).
-                    type(row.getCell(5).getStringCellValue()).build();
-
-           garbageBinDAO.createGarbageBin(garbageBinEntity);
+                garbageBinDAO.createGarbageBin(garbageBinEntity);
+            }
+            catch(IndexOutOfBoundsException e){}
         }
 
         workbook.close(); //리소스 해제

@@ -21,6 +21,6 @@ public class GarbageBinServiceImpl implements GarbageBinService {
 
     @Override
     public List<GarbageBinDTO> readAllByBoxRange(Double x1, Double x2, Double y1, Double y2) {
-        return GarbageBinEntity.doDTOList(this.garbageBinDAO.readAllByBoxRange(x1,x2,y1,y2));
+        return GarbageBinEntity.doDTOList(this.garbageBinDAO.readAllByBoxRange(x1, x2, y1, y2));
     }
 }

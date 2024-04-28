@@ -27,4 +27,5 @@ public class ToiletServiceImpl implements ToiletService {
         return ToiletEntity
                 .toDTOList(this.toiletDAO.readAllByBoxRange(x1, x2, y1, y2));
     }
+
 }
