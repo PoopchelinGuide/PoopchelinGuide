@@ -3,14 +3,11 @@ package dev.changuii.project.entity;
 
 import dev.changuii.project.dto.ToiletDTO;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.util.ArrayList;
 import java.util.List;
-
+@ToString
 @Getter
 @Entity @NoArgsConstructor @AllArgsConstructor @Builder
 public class ToiletEntity {
@@ -25,6 +22,7 @@ public class ToiletEntity {
 
     private Double coordinateY;
 
+    @ToString.Exclude
     @OneToMany(mappedBy = "toilet", orphanRemoval = true, cascade = CascadeType.REMOVE)
     private List<ReviewEntity> reviews = new ArrayList<>();
 

@@ -2,6 +2,7 @@ package dev.changuii.project.controller;
 
 
 import dev.changuii.project.dao.ToiletDAO;
+import dev.changuii.project.dto.ReviewDTO;
 import dev.changuii.project.dto.ToiletDTO;
 import dev.changuii.project.service.ToiletService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +17,7 @@ import java.util.List;
 @RequestMapping("/toilet")
 public class ToiletController {
 
-    private ToiletService toiletService;
+    private final ToiletService toiletService;
 
     public ToiletController(
             @Autowired ToiletService toiletService
@@ -35,4 +36,8 @@ public class ToiletController {
                 .body( this.toiletService.readAllByBoxRange(x1, x2, y1, y2));
     }
 
+    @GetMapping("{id}")
+    public ResponseEntity<List<ReviewDTO>> readReview(@PathVariable Long id){
+        return null;
+    }
 }

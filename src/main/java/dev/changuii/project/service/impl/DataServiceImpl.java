@@ -40,24 +40,32 @@ public class DataServiceImpl implements DataService {
 
     @Override
     public void storeToiletOpenAPIData() throws URISyntaxException {
+        int page1 = 1;
+        int page2 = 1000;
+
         String openAPIKey = "63776a527472686c37354d626e557a";
-        URI uri = new URI("http://openapi.seoul.go.kr:8088/" +
-                openAPIKey+"/json/SearchPublicToiletPOIService/1/1000/");
 
         HttpHeaders headers = new HttpHeaders();
         HttpEntity<?> http = new HttpEntity<>(headers);
         RestTemplate restTemplate = new RestTemplate();
-        ResponseEntity<LinkedHashMap> response = restTemplate.exchange(uri, HttpMethod.GET, http, LinkedHashMap.class);
 
-        List<LinkedHashMap> data =(List<LinkedHashMap>)((LinkedHashMap) response.getBody().get("SearchPublicToiletPOIService")).get("row");
+        for(int i = 0; i < 5; i ++) {
+            URI uri = new URI("http://openapi.seoul.go.kr:8088/" +
+                    openAPIKey+"/json/SearchPublicToiletPOIService/" + page1 + "/" + page2);
+            ResponseEntity<LinkedHashMap> response = restTemplate.exchange(uri, HttpMethod.GET, http, LinkedHashMap.class);
+
+            List<LinkedHashMap> data = (List<LinkedHashMap>) ((LinkedHashMap) response.getBody().get("SearchPublicToiletPOIService")).get("row");
 
 
-        for(LinkedHashMap d : data){
-            ToiletEntity toilet = ToiletEntity.builder()
-                    .coordinateX((Double) d.get("X_WGS84"))
-                    .coordinateY((Double) d.get("Y_WGS84"))
-                    .name((String) d.get("FNAME")).build();
-            this.toiletDAO.createToilet(toilet);
+            for (LinkedHashMap d : data) {
+                ToiletEntity toilet = ToiletEntity.builder()
+                        .coordinateX((Double) d.get("X_WGS84"))
+                        .coordinateY((Double) d.get("Y_WGS84"))
+                        .name((String) d.get("FNAME")).build();
+                this.toiletDAO.createToilet(toilet);
+            }
+            page1 += 1000;
+            page2 += 1000;
         }
 
     }

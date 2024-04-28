@@ -1,7 +1,9 @@
 package dev.changuii.project.service.impl;
 
 import dev.changuii.project.dao.ToiletDAO;
+import dev.changuii.project.dto.ReviewDTO;
 import dev.changuii.project.dto.ToiletDTO;
+import dev.changuii.project.entity.ReviewEntity;
 import dev.changuii.project.entity.ToiletEntity;
 import dev.changuii.project.service.ToiletService;
 import org.springframework.beans.factory.annotation.Autowired;

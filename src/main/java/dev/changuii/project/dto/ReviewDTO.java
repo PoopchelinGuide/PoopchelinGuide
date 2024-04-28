@@ -20,6 +20,7 @@ public class ReviewDTO {
     private String nickname;
     @NotBlank(message = "비밀번호를 입력하세요.")
     private String password;
+    @NotBlank(message = "별점을 선택해주세요.")
     private int rate;
     private List<String> tag;
     @Size(max =  10, message = "10자 이하로 입력해주세요.")

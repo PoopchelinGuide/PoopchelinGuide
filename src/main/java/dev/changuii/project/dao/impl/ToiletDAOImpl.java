@@ -35,7 +35,10 @@ public class ToiletDAOImpl implements ToiletDAO {
 
     @Override
     public List<ToiletEntity> readAllByBoxRange(Double x1, Double x2, Double y1, Double y2) {
-        return this.toiletRepository
+        List<ToiletEntity> toiletEntities = toiletRepository
                 .findAllByCoordinateXBetweenAndCoordinateYBetween(x1, x2, y1, y2);
+        System.out.println(toiletEntities);
+
+        return toiletEntities;
     }
 }
