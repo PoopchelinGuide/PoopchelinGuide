@@ -4,6 +4,7 @@ package dev.changuii.project.controller;
 import dev.changuii.project.dto.ReviewDTO;
 import dev.changuii.project.dto.response.ResponseReviewDTO;
 import dev.changuii.project.service.impl.ReviewServiceImpl;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -21,11 +22,10 @@ public class ReviewController {
         this.reviewService = reviewService;
     }
     @PostMapping
-    public ResponseEntity<?> createReview(@RequestBody ReviewDTO reviewDTO){
+    public ResponseEntity<?> createReview(@RequestBody @Valid ReviewDTO reviewDTO){
         ResponseReviewDTO createReview = reviewService.createReview(reviewDTO);
         return ResponseEntity.status(HttpStatus.CREATED).body(createReview);
     }
-
 
     @GetMapping("/{id}")
     public ResponseEntity<?> readReview(@PathVariable Long id){
