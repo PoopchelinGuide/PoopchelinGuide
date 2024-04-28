@@ -10,9 +10,11 @@ import org.springframework.stereotype.Repository;
 @Repository
 public class ReviewDAOImpl implements ReviewDAO {
 
+    private final ReviewRepository reviewRepository;
 
-    @Autowired
-    private ReviewRepository reviewRepository;
+    public ReviewDAOImpl(@Autowired ReviewRepository reviewRepository) {
+        this.reviewRepository = reviewRepository;
+    }
 
     @Override
     public ReviewEntity createReivew(ReviewEntity reviewEntity) {

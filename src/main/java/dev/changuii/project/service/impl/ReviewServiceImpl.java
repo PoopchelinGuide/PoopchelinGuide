@@ -45,7 +45,7 @@ public class ReviewServiceImpl implements ReviewService {
     }
 
     @Override
-    public ResponseReviewDTO readReivew(long id) {
+    public ResponseReviewDTO readReview(long id) {
         return ReviewEntity
                 .toResponseDTO(this.reviewDAO.readByIdReview(id));
     }
