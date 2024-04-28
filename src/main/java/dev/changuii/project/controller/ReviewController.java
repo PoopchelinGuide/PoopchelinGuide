@@ -26,13 +26,21 @@ public class ReviewController {
         return ResponseEntity.status(HttpStatus.CREATED).body(createReview);
     }
 
+<<<<<<< HEAD
     @GetMapping("{id}")
+=======
+    @GetMapping("/{id}")
+>>>>>>> feat/toilet_service
     public ResponseEntity<?> readReview(@PathVariable Long id){
         ResponseReviewDTO readReview = reviewService.readReivew(id);
         return ResponseEntity.status(HttpStatus.OK).body(readReview);
     }
 
+<<<<<<< HEAD
     @PatchMapping("{id}")
+=======
+    @PatchMapping("/{id}")
+>>>>>>> feat/toilet_service
     public ResponseEntity<?> updateReview(@PathVariable Long id,
                                           @RequestBody ReviewDTO reviewDTO){
         ResponseReviewDTO updateReview = reviewService.updateReview(id,reviewDTO);
@@ -40,7 +48,11 @@ public class ReviewController {
         return ResponseEntity.status(HttpStatus.OK).body(updateReview);
     }
 
+<<<<<<< HEAD
     @DeleteMapping("{id}")
+=======
+    @DeleteMapping("/{id}")
+>>>>>>> feat/toilet_service
     public void deleteReview(@PathVariable Long id){
         reviewService.deleteReview(id);
     }
