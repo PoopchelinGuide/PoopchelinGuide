@@ -29,7 +29,7 @@ public class DataController {
     }
 
     @GetMapping("/garbage")
-    public ResponseEntity<?> getGarbageBinData() throws IOException {
+    public ResponseEntity<?> getGarbageBinData() throws IOException, URISyntaxException {
         this.dataService.readExcelData();
         return ResponseEntity.status(200).body("garbage");
     }

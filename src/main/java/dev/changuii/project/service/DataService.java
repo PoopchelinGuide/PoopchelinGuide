@@ -8,5 +8,5 @@ public interface DataService {
 
     public void storeToiletOpenAPIData() throws URISyntaxException;
 
-    void readExcelData() throws IOException;
+    void readExcelData() throws IOException, URISyntaxException;
 }
