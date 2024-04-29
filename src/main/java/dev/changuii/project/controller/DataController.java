@@ -1,6 +1,7 @@
 package dev.changuii.project.controller;
 
 
+
 import dev.changuii.project.service.DataService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -25,10 +26,10 @@ public class DataController {
     @GetMapping("/toilet")
     public ResponseEntity<?> getToiletData() throws URISyntaxException {
         this.dataService.storeToiletOpenAPIData();
-        return ResponseEntity.status(200).body("asd");
+        return ResponseEntity.status(200).body("toilet data set");
     }
 
-    @GetMapping("/garbageBin")
+    @GetMapping("/garbagebin")
     public ResponseEntity<?> getGarbageBinData() throws IOException, URISyntaxException {
         this.dataService.readExcelData();
         return ResponseEntity.status(200).body("garbageBin");

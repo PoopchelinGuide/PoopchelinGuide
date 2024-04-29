@@ -1,13 +1,6 @@
 
 # default
 spring:
-  #thymeleaf
-  thymeleaf:
-    prefix: classpath:templates/thymeleaf/
-    check-template: true
-    suffix: .html
-    mode: HTML
-    cache: false # 개발할때는 꺼야 캐시된 파일을 사용하지 않는다.
   # 적용시킬 profile
   profiles:
     active: dev
@@ -40,13 +33,13 @@ spring:
     activate:
       on-profile: dev
   datasource:
-    url: jdbc:mariadb://localhost:3307/poopchelin?createDatabaseIfNotExist=true
+    url: jdbc:mariadb://localhost:3306/poopchelin?createDatabaseIfNotExist=true
     username: root
     password: 1234
     driver-class-name: org.mariadb.jdbc.Driver
   jpa:
     hibernate:
-      ddl-auto: create-drop
+      ddl-auto: update
     show-sql: true
     properties:
       hibernate:

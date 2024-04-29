@@ -10,6 +10,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
+@CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("/review")
 public class ReviewController {
@@ -31,6 +34,19 @@ public class ReviewController {
     public ResponseEntity<?> readReview(@PathVariable Long id){
         ResponseReviewDTO readReview = reviewService.readReview(id);
         return ResponseEntity.status(HttpStatus.OK).body(readReview);
+    }
+
+
+    // type
+    // true garbageBin
+    // false Toilet
+    @GetMapping("/tg/{id}")
+    public ResponseEntity<List<ResponseReviewDTO>> readAllReviewByToiletORGarbageBin(
+        @RequestParam("type") boolean type,
+        @PathVariable("id") Long id
+    ){
+        return ResponseEntity.status(HttpStatus.OK).body(
+                this.reviewService.readAllReviewByToiletORGarbageBin(type, id));
     }
 
     @PatchMapping("/{id}")

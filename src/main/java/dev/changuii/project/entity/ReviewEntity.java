@@ -15,6 +15,7 @@ import lombok.NoArgsConstructor;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Entity @Builder @Getter
 @AllArgsConstructor @NoArgsConstructor
@@ -27,7 +28,7 @@ public class ReviewEntity {
 
     private String password;
 
-    private int rate;
+    private Double rate;
 
     private LocalDateTime writeDate;
 
@@ -47,10 +48,10 @@ public class ReviewEntity {
 
     // Review가 화장실인지 쓰레기통인지 체크하여 넣는다.
     public ReviewEntity setType(ToiletEntity toilet, GarbageBinEntity garbageBin){
-        if(toilet == null){
+        if(toilet == null && garbageBin != null){
             this.garbageBin = garbageBin;
         }
-        else if(garbageBin == null){
+        else if(garbageBin == null & toilet != null){
             this.toilet = toilet;
         }
         else{
@@ -70,6 +71,11 @@ public class ReviewEntity {
                 .content(reviewEntity.getContent()).build();
 
         // todo : toilet, garbagebin 도 넣어야함
+    }
+
+    public static List<ResponseReviewDTO> toResponseDTOList(List<ReviewEntity> reviewEntities){
+        return reviewEntities.stream()
+                .map(ReviewEntity::toResponseDTO).collect(Collectors.toList());
     }
 
     public ReviewEntity updateReview(ReviewDTO after){

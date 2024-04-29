@@ -16,12 +16,11 @@ public class ResponseReviewDTO {
     private Long id;
     private String nickname;
     private String password;
-    private int rate;
+    private Double rate;
     private List<String> tag;
     private String content;
     private ToiletDTO toiletDTO;
     private GarbageBinDTO garbageBinDTO;
     private LocalDateTime writeDate;
-
 
 }

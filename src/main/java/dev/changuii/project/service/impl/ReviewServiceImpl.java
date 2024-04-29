@@ -12,6 +12,8 @@ import dev.changuii.project.service.ReviewService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class ReviewServiceImpl implements ReviewService {
     private ReviewDAO reviewDAO;
@@ -30,10 +32,19 @@ public class ReviewServiceImpl implements ReviewService {
 
 
     @Override
+    public List<ResponseReviewDTO> readAllReviewByToiletORGarbageBin(boolean type, Long id) {
+        GarbageBinEntity garbageBin = type ? this.garbageBinDAO.readByIdGarbageBin(id) : null;
+        ToiletEntity toilet = !type ? this.toiletDAO.readByIdToilet(id) : null;
+
+        return ReviewEntity.toResponseDTOList(type ?
+                        this.reviewDAO.readAllReviewByGarbageBin(garbageBin) :
+                        this.reviewDAO.readAllReviewByToilet(toilet));
+    }
+
+    @Override
     public ResponseReviewDTO createReview(ReviewDTO reviewDTO) {
         GarbageBinEntity garbageBin = null;
         ToiletEntity toilet = null;
-
         if(reviewDTO.isType()){
             garbageBin = this.garbageBinDAO.readByIdGarbageBin(reviewDTO.getGarbageBinId());
         }else{
