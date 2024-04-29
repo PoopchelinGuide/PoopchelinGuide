@@ -26,9 +26,9 @@ public class QGarbageBinEntity extends EntityPathBase<GarbageBinEntity> {
 
     public final NumberPath<Double> coordinateY = createNumber("coordinateY", Double.class);
 
-    public final StringPath detail = createString("detail");
-
     public final NumberPath<Long> id = createNumber("id", Long.class);
+
+    public final StringPath name = createString("name");
 
     public final ListPath<ReviewEntity, QReviewEntity> reviews = this.<ReviewEntity, QReviewEntity>createList("reviews", ReviewEntity.class, QReviewEntity.class, PathInits.DIRECT2);
 

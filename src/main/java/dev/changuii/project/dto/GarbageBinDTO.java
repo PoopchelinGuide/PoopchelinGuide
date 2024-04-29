@@ -14,7 +14,7 @@ public class GarbageBinDTO {
 
     private long id;
     private String address;
-    private String detail;
+    private String name;
     private String type;
     private double coordinateX;
     private double coordinateY;
@@ -27,7 +27,7 @@ public class GarbageBinDTO {
                 .address(garbageBinDTO.getAddress())
                 .coordinateX(garbageBinDTO.getCoordinateX())
                 .coordinateY(garbageBinDTO.getCoordinateY())
-                .detail(garbageBinDTO.getDetail())
+                .name(garbageBinDTO.getName())
                 .type(garbageBinDTO.getType()).build();
 
     }

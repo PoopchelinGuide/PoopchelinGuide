@@ -102,7 +102,7 @@ public class DataServiceImpl implements DataService {
                         coordinateX(Double.parseDouble(result.get("x").toString())).
                         coordinateY(Double.parseDouble(result.get("y").toString())).
                         address(row.getCell(2).getStringCellValue()).
-                        detail(row.getCell(3).getStringCellValue()).
+                        name(row.getCell(3).getStringCellValue()).
                         type(row.getCell(5).getStringCellValue()).build();
 
                 garbageBinDAO.createGarbageBin(garbageBinEntity);

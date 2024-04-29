@@ -21,7 +21,7 @@ public class GarbageBinEntity {
     private String address;
     private double coordinateX;
     private double coordinateY;
-    private String detail;
+    private String name;
     private String type;
 
     @OneToMany(mappedBy = "garbageBin", orphanRemoval = true, cascade = CascadeType.REMOVE)
@@ -33,7 +33,7 @@ public class GarbageBinEntity {
                 .address(garbageBinEntity.getAddress())
                 .coordinateX(garbageBinEntity.getCoordinateX())
                 .coordinateY(garbageBinEntity.getCoordinateY())
-                .detail(garbageBinEntity.getDetail())
+                .name(garbageBinEntity.getName())
                 .type(garbageBinEntity.getType())
                 .build();
     }

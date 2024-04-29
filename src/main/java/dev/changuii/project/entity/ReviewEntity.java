@@ -1,10 +1,7 @@
 package dev.changuii.project.entity;
 
-import dev.changuii.project.dto.GarbageBinDTO;
 import dev.changuii.project.dto.ReviewDTO;
-import dev.changuii.project.dto.ToiletDTO;
 import dev.changuii.project.dto.response.ResponseReviewDTO;
-import dev.changuii.project.exception.DataNotFoundException;
 import dev.changuii.project.exception.InvalidReviewTypeException;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
