@@ -7,12 +7,13 @@ import java.util.List;
 
 public interface ReviewService {
 
-    public List<ResponseReviewDTO> readAllReviewByToiletORGarbageBin(boolean type, Long id);
+    List<ResponseReviewDTO> readAllReviewByToiletORGarbageBin(boolean type, Long id);
 
-    public ResponseReviewDTO createReview(ReviewDTO reviewDTO);
-    public ResponseReviewDTO readReview(long id);
-    public ResponseReviewDTO updateReview(long id, ReviewDTO reviewDTO);
-    public void deleteReview(long id);
+    ResponseReviewDTO createReview(ReviewDTO reviewDTO);
+    ResponseReviewDTO readReview(long id);
+    ResponseReviewDTO updateReview(long id, ReviewDTO reviewDTO);
+    List<ResponseReviewDTO> readSummaryByToiletORGarbageBin(boolean type, Long id);
+    void deleteReview(long id,String password);
 
 
 }

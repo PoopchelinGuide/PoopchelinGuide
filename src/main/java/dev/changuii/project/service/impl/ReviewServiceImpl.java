@@ -8,6 +8,7 @@ import dev.changuii.project.dto.response.ResponseReviewDTO;
 import dev.changuii.project.entity.GarbageBinEntity;
 import dev.changuii.project.entity.ReviewEntity;
 import dev.changuii.project.entity.ToiletEntity;
+import dev.changuii.project.exception.InvalidPasswordException;
 import dev.changuii.project.service.ReviewService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,9 +17,9 @@ import java.util.List;
 
 @Service
 public class ReviewServiceImpl implements ReviewService {
-    private ReviewDAO reviewDAO;
-    private GarbageBinDAO garbageBinDAO;
-    private ToiletDAO toiletDAO;
+    private final ReviewDAO reviewDAO;
+    private final GarbageBinDAO garbageBinDAO;
+    private final ToiletDAO toiletDAO;
 
     public ReviewServiceImpl(
             @Autowired ReviewDAO reviewDAO,
@@ -39,6 +40,16 @@ public class ReviewServiceImpl implements ReviewService {
         return ReviewEntity.toResponseDTOList(type ?
                         this.reviewDAO.readAllReviewByGarbageBin(garbageBin) :
                         this.reviewDAO.readAllReviewByToilet(toilet));
+    }
+
+    @Override
+    public List<ResponseReviewDTO> readSummaryByToiletORGarbageBin(boolean type, Long id) {
+        GarbageBinEntity garbageBin = type ? this.garbageBinDAO.readByIdGarbageBin(id) : null;
+        ToiletEntity toilet = !type ? this.toiletDAO.readByIdToilet(id) : null;
+
+        return ReviewEntity.toResponseDTOList(type ?
+                this.reviewDAO.readAllReviewByGarbageBin(garbageBin) :
+                this.reviewDAO.readAllReviewByToilet(toilet));
     }
 
     @Override
@@ -69,8 +80,15 @@ public class ReviewServiceImpl implements ReviewService {
                         this.reviewDAO.readByIdReview(id).updateReview(reviewDTO)));
     }
 
+
+
     @Override
-    public void deleteReview(long id) {
+    public void deleteReview(long id, String password) {
+        ReviewEntity reviewEntity = reviewDAO.readByIdReview(id);
+
+        if(!reviewEntity.getPassword().equals(password))
+            throw new InvalidPasswordException();
+
         this.reviewDAO.deleteReview(id);
     }
 }

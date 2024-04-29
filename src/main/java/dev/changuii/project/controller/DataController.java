@@ -14,7 +14,7 @@ import java.net.URISyntaxException;
 @RequestMapping("/data")
 public class DataController {
 
-    private DataService dataService;
+    private final DataService dataService;
 
     public DataController(
             @Autowired DataService dataService
@@ -29,7 +29,7 @@ public class DataController {
         return ResponseEntity.status(200).body("toilet data set");
     }
 
-    @GetMapping("/garbagebin")
+    @GetMapping("/garbageBin")
     public ResponseEntity<?> getGarbageBinData() throws IOException, URISyntaxException {
         this.dataService.readExcelData();
         return ResponseEntity.status(200).body("garbageBin");

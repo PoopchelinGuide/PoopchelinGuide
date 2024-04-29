@@ -1,7 +1,6 @@
 package dev.changuii.project.controller;
 
 
-import dev.changuii.project.dao.ToiletDAO;
 import dev.changuii.project.dto.GarbageBinDTO;
 import dev.changuii.project.dto.ReviewDTO;
 import dev.changuii.project.dto.ToiletDTO;
@@ -34,18 +33,21 @@ public class ToiletController {
 
     @GetMapping("/range")
     public ResponseEntity<Map<String, Object>> readAllByBoxRange(
-            @RequestParam("x1") Double x1,
+            @RequestParam("x1") Double x1, // x1, y1, x2, y2는 원의 양 끝 점 좌표
             @RequestParam("x2") Double x2,
             @RequestParam("y1") Double y1,
-            @RequestParam("y2") Double y2
+            @RequestParam("y2") Double y2,
+            @RequestParam("x3") Double x3, // 중심 좌표
+            @RequestParam("y3") Double y3  // 중심 좌표
     ){
         List<GarbageBinDTO> garbageBinDTOS = garbageBinService.readAllByBoxRange(x1, x2, y1, y2);
         List<ToiletDTO> toiletDTOS = toiletService.readAllByBoxRange(x1, x2, y1, y2);
-        //ToiletDTO toiletDTO = toiletService.findNearestToilet()
+        ToiletDTO toiletDTO = toiletService.findNearestToilet(x1, x2, y1, y2, x3, y3);
 
         Map<String, Object> responseData = new HashMap<>();
         responseData.put("toilet", toiletDTOS);
         responseData.put("garbageBin", garbageBinDTOS);
+        responseData.put("nearestToilet",toiletDTO);
 
         return new ResponseEntity<>(responseData, HttpStatus.OK);
     }

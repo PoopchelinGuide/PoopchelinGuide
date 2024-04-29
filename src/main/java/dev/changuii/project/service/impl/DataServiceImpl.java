@@ -89,6 +89,7 @@ public class DataServiceImpl implements DataService {
 
         for (Row row : sheet) { //시트의 행을 모두 봄
             if (row.getRowNum() < 6) continue; // 헤더 스킵
+            if (row.getRowNum() > 3182) break;
 
             ResponseEntity<LinkedHashMap> response = restTemplate.exchange(uri + row.getCell(2).getStringCellValue(),
                     HttpMethod.GET,
@@ -110,5 +111,6 @@ public class DataServiceImpl implements DataService {
         }
 
         workbook.close(); //리소스 해제
+
     }
 }

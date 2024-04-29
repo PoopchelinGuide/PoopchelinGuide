@@ -36,7 +36,14 @@ public class ReviewController {
         return ResponseEntity.status(HttpStatus.OK).body(readReview);
     }
 
-
+    @GetMapping("/tg/summary/{id}")
+    public ResponseEntity<List<ResponseReviewDTO>> readSummaryByToiletORGarbageBin(
+            @RequestParam("type") boolean type,
+            @PathVariable("id") Long id
+    ){
+        return ResponseEntity.status(HttpStatus.OK).body(
+                this.reviewService.readSummaryByToiletORGarbageBin(type, id));
+    }
     // type
     // true garbageBin
     // false Toilet
@@ -50,7 +57,7 @@ public class ReviewController {
     }
 
     @PatchMapping("/{id}")
-    public ResponseEntity<?> updateReview(@PathVariable Long id,
+    public ResponseEntity<?> updateReview(@PathVariable("id") Long id,
                                           @RequestBody ReviewDTO reviewDTO){
         ResponseReviewDTO updateReview = reviewService.updateReview(id,reviewDTO);
 
@@ -58,11 +65,8 @@ public class ReviewController {
     }
 
     @DeleteMapping("/{id}")
-    public void deleteReview(@PathVariable Long id){
-        reviewService.deleteReview(id);
+    public void deleteReview(@PathVariable("id") Long id, @RequestParam("password") String password){
+        reviewService.deleteReview(id, password);
     }
-
-
-
 
 }

@@ -22,12 +22,12 @@ public class ReviewDAOImpl implements ReviewDAO {
 
     @Override
     public List<ReviewEntity> readAllReviewByGarbageBin(GarbageBinEntity garbageBin) {
-        return this.reviewRepository.readAllByGarbageBin(garbageBin);
+        return this.reviewRepository.readAllByGarbageBinOrderByWriteDateDesc(garbageBin);
     }
 
     @Override
     public List<ReviewEntity> readAllReviewByToilet(ToiletEntity toilet) {
-        return this.reviewRepository.readAllByToilet(toilet);
+        return this.reviewRepository.readAllByToiletOrderByWriteDateDesc(toilet);
     }
 
     @Override
@@ -45,6 +45,5 @@ public class ReviewDAOImpl implements ReviewDAO {
     public void deleteReview(Long id) {
         if(this.reviewRepository.deleteReviewEntitiesById(id) == 0)
             throw new DataNotFoundException();
-
     }
 }

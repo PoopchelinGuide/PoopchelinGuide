@@ -2,6 +2,7 @@ package dev.changuii.project.advisor;
 
 
 import dev.changuii.project.exception.DataNotFoundException;
+import dev.changuii.project.exception.InvalidPasswordException;
 import dev.changuii.project.exception.InvalidReviewTypeException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -36,7 +37,10 @@ public class ControllerAdvisor {
 
     // 예외
     @ExceptionHandler({
-            RuntimeException.class, DataNotFoundException.class, InvalidReviewTypeException.class
+            RuntimeException.class,
+            DataNotFoundException.class,
+            InvalidReviewTypeException.class,
+            InvalidPasswordException.class
     })
     public ResponseEntity<String> exceptionHandler(Exception e){
         return ResponseEntity
