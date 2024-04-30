@@ -4,6 +4,7 @@ import dev.changuii.project.dao.GarbageBinDAO;
 import dev.changuii.project.dao.ReviewDAO;
 import dev.changuii.project.dao.ToiletDAO;
 import dev.changuii.project.dto.ReviewDTO;
+import dev.changuii.project.dto.response.ResponsePopoverDTO;
 import dev.changuii.project.dto.response.ResponseReviewDTO;
 import dev.changuii.project.entity.GarbageBinEntity;
 import dev.changuii.project.entity.ReviewEntity;
@@ -13,7 +14,8 @@ import dev.changuii.project.service.ReviewService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 public class ReviewServiceImpl implements ReviewService {
@@ -43,13 +45,50 @@ public class ReviewServiceImpl implements ReviewService {
     }
 
     @Override
-    public List<ResponseReviewDTO> readSummaryByToiletORGarbageBin(boolean type, Long id) {
+    public ResponsePopoverDTO readSummaryByToiletORGarbageBin(boolean type, Long id) {
         GarbageBinEntity garbageBin = type ? this.garbageBinDAO.readByIdGarbageBin(id) : null;
         ToiletEntity toilet = !type ? this.toiletDAO.readByIdToilet(id) : null;
+        String name = type ? garbageBin.getName() : toilet.getName();
 
-        return ReviewEntity.toResponseDTOList(type ?
+        List<ReviewEntity> entities = type ?
                 this.reviewDAO.readAllReviewByGarbageBin(garbageBin) :
-                this.reviewDAO.readAllReviewByToilet(toilet));
+                this.reviewDAO.readAllReviewByToilet(toilet);
+
+        Double avgRate = 0.0;
+        Map<String, Integer> countTag = new HashMap<>();
+        for(ReviewEntity e : entities){
+            avgRate += e.getRate();
+            for(String s : e.getTag()){
+                countTag.put(s, countTag.containsKey(s) ? countTag.get(s)+1 : 1);
+            }
+        }
+
+        List<String> resultTag = new ArrayList<>();
+        List<ReviewEntity> resultEntity = new ArrayList<>();
+        List<String> sort = new ArrayList<>(countTag.keySet());
+        Collections.sort(sort, (o1, o2) -> {
+            return  countTag.get(o2)- countTag.get(o1);
+        });
+
+
+        for(String s : sort){
+            if(resultTag.size() == 3) break;
+            resultTag.add(s);
+        }
+
+        avgRate /= entities.size() == 0 ? 1 : entities.size();
+
+        for(ReviewEntity e : entities){
+            if(resultEntity.size() == 2) break;
+            resultEntity.add(e);
+        }
+
+        return ResponsePopoverDTO.builder()
+                .name(name)
+                .rate(avgRate)
+                .Tag(resultTag)
+                .recentReview(ReviewEntity.toResponseDTOList(resultEntity))
+                .build();
     }
 
     @Override

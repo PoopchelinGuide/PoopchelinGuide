@@ -2,6 +2,7 @@ package dev.changuii.project.controller;
 
 
 import dev.changuii.project.dto.ReviewDTO;
+import dev.changuii.project.dto.response.ResponsePopoverDTO;
 import dev.changuii.project.dto.response.ResponseReviewDTO;
 import dev.changuii.project.service.impl.ReviewServiceImpl;
 import jakarta.validation.Valid;
@@ -36,8 +37,8 @@ public class ReviewController {
         return ResponseEntity.status(HttpStatus.OK).body(readReview);
     }
 
-    @GetMapping("/tg/summary/{id}")
-    public ResponseEntity<List<ResponseReviewDTO>> readSummaryByToiletORGarbageBin(
+    @GetMapping("/tg/popover/{id}")
+    public ResponseEntity<ResponsePopoverDTO> readSummaryByToiletORGarbageBin(
             @RequestParam("type") boolean type,
             @PathVariable("id") Long id
     ){
