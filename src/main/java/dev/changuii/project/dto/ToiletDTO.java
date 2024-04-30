@@ -17,6 +17,7 @@ public class ToiletDTO {
     private double coordinateX;
     private double coordinateY;
 
+    @Builder.Default
     private List<ReviewDTO> reviews = new ArrayList<>();
 
 

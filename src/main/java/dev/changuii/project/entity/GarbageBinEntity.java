@@ -24,6 +24,8 @@ public class GarbageBinEntity {
     private String name;
     private String type;
 
+
+    @Builder.Default
     @OneToMany(mappedBy = "garbageBin", orphanRemoval = true, cascade = CascadeType.REMOVE)
     private List<ReviewEntity> reviews = new ArrayList<>();
 

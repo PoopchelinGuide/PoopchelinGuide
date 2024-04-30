@@ -22,6 +22,7 @@ public class ToiletEntity {
 
     private Double coordinateY;
 
+    @Builder.Default
     @ToString.Exclude
     @OneToMany(mappedBy = "toilet", orphanRemoval = true, cascade = CascadeType.REMOVE)
     private List<ReviewEntity> reviews = new ArrayList<>();

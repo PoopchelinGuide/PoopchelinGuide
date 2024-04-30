@@ -32,6 +32,7 @@ public class ReviewEntity {
     @Lob
     private String content;
 
+    @Builder.Default
     @ElementCollection
     private List<String> tag = new ArrayList<>();
 
