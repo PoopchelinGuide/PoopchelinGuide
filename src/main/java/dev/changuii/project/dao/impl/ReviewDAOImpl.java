@@ -16,7 +16,8 @@ public class ReviewDAOImpl implements ReviewDAO {
 
     private final ReviewRepository reviewRepository;
 
-    public ReviewDAOImpl(@Autowired ReviewRepository reviewRepository) {
+    public ReviewDAOImpl(
+            @Autowired ReviewRepository reviewRepository) {
         this.reviewRepository = reviewRepository;
     }
 

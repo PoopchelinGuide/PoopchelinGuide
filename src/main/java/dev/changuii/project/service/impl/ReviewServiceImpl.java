@@ -66,6 +66,7 @@ public class ReviewServiceImpl implements ReviewService {
     }
 
 
+    // type {true : garbage, false : toilet}
     @Override
     public List<ResponseReviewDTO> readAllReviewByToiletORGarbageBin(boolean type, Long id) {
         GarbageBinEntity garbageBin = type ? this.garbageBinDAO.readByIdGarbageBin(id) : null;
@@ -85,8 +86,9 @@ public class ReviewServiceImpl implements ReviewService {
         List<ReviewEntity> entities = type ?
                 this.reviewDAO.readAllReviewByGarbageBin(garbageBin) :
                 this.reviewDAO.readAllReviewByToilet(toilet);
-        List<ReviewEntity> resultEntity = new ArrayList<>();
 
+        // 최근 리뷰 2개
+        List<ReviewEntity> resultEntity = new ArrayList<>();
         for(ReviewEntity e : entities){
             if(resultEntity.size() == 2) break;
             resultEntity.add(e);
@@ -94,7 +96,9 @@ public class ReviewServiceImpl implements ReviewService {
 
         return ResponseReviewPageDTO.builder()
                 .name(name)
+                // 평균 rate
                 .rate(this.getAvgRate(entities))
+                // 최다 태그 조회 (3개)
                 .Tag(this.getMostTag(entities))
                 .recentReview(ReviewEntity.toResponseDTOList(resultEntity))
                 .build();
@@ -145,8 +149,6 @@ public class ReviewServiceImpl implements ReviewService {
                 this.reviewDAO.createReivew(
                         this.reviewDAO.readByIdReview(id).updateReview(reviewDTO)));
     }
-
-
 
     @Override
     public void deleteReview(long id, String password) {

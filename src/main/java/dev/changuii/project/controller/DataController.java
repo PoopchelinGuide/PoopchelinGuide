@@ -22,7 +22,6 @@ public class DataController {
         this.dataService = dataService;
     }
 
-
     @GetMapping("/toilet")
     public ResponseEntity<?> getToiletData() throws URISyntaxException {
         this.dataService.storeToiletOpenAPIData();
