@@ -11,7 +11,6 @@ spring:
       max-file-size: 50MB
 
 server:
-  port: 80
   # Mock Mvc test response
   servlet:
     encoding:
@@ -28,6 +27,8 @@ server:
 
 ---
 # dev
+server:
+  port: 80
 spring:
   config:
     activate:
@@ -46,6 +47,13 @@ spring:
         format_sql: true
 ---
 # prod
+server:
+  ssl:
+    key-store: "classpath:keystore.p12"
+    key-store-type: PKCS12
+    key-store-password: ${SSL_PASSWORD}
+  port: 443
+
 spring:
   config:
     activate:
