@@ -2,7 +2,7 @@ package dev.changuii.project.controller;
 
 
 import dev.changuii.project.dto.ReviewDTO;
-import dev.changuii.project.dto.response.ResponsePopoverDTO;
+import dev.changuii.project.dto.response.ResponseReviewPageDTO;
 import dev.changuii.project.dto.response.ResponseReviewDTO;
 import dev.changuii.project.service.impl.ReviewServiceImpl;
 import jakarta.validation.Valid;
@@ -37,8 +37,17 @@ public class ReviewController {
         return ResponseEntity.status(HttpStatus.OK).body(readReview);
     }
 
+    @GetMapping("/tg/total/{id}")
+    public ResponseEntity<ResponseReviewPageDTO> readByPageDataByToiletOrGarbageBin(
+            @RequestParam("type") boolean type,
+            @PathVariable("id") Long id
+    ){
+        return ResponseEntity.status(HttpStatus.OK).body(
+                this.reviewService.readAllReviewPageDataByToieltOrGarbageBin(type, id));
+    }
+
     @GetMapping("/tg/popover/{id}")
-    public ResponseEntity<ResponsePopoverDTO> readSummaryByToiletORGarbageBin(
+    public ResponseEntity<ResponseReviewPageDTO> readSummaryByToiletORGarbageBin(
             @RequestParam("type") boolean type,
             @PathVariable("id") Long id
     ){

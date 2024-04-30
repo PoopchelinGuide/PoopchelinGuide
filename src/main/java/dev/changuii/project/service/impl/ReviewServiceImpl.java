@@ -4,7 +4,7 @@ import dev.changuii.project.dao.GarbageBinDAO;
 import dev.changuii.project.dao.ReviewDAO;
 import dev.changuii.project.dao.ToiletDAO;
 import dev.changuii.project.dto.ReviewDTO;
-import dev.changuii.project.dto.response.ResponsePopoverDTO;
+import dev.changuii.project.dto.response.ResponseReviewPageDTO;
 import dev.changuii.project.dto.response.ResponseReviewDTO;
 import dev.changuii.project.entity.GarbageBinEntity;
 import dev.changuii.project.entity.ReviewEntity;
@@ -15,7 +15,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
-import java.util.stream.Collectors;
 
 @Service
 public class ReviewServiceImpl implements ReviewService {
@@ -33,6 +32,39 @@ public class ReviewServiceImpl implements ReviewService {
         this.toiletDAO = toiletDAO;
     }
 
+    // 평균 rate 조회
+    private Double getAvgRate(List<ReviewEntity> entities){
+        if(entities.size() == 0) return 0.0;
+        Double avgRate = 0.0;
+        for(ReviewEntity e : entities){
+            avgRate += e.getRate();
+        }
+        return avgRate / entities.size();
+    }
+
+    // 가장 많은 태그 수 조회 (3개)
+    private List<String> getMostTag(List<ReviewEntity> entities){
+
+        Map<String, Integer> countTag = new HashMap<>();
+        for(ReviewEntity e : entities){
+            for(String tag : e.getTag()){
+                countTag.put(tag, countTag.containsKey(tag) ? countTag.get(tag)+1 : 1);
+            }
+        }
+        List<String> result = new ArrayList<>(countTag.keySet());
+        Collections.sort(result, (o1, o2) -> {
+            return  countTag.get(o2)- countTag.get(o1);
+        });
+
+        List<String> resultTag = new ArrayList<>();
+        for(String s : result){
+            if(resultTag.size() == 3) break;
+            resultTag.add(s);
+        }
+
+        return resultTag;
+    }
+
 
     @Override
     public List<ResponseReviewDTO> readAllReviewByToiletORGarbageBin(boolean type, Long id) {
@@ -45,7 +77,31 @@ public class ReviewServiceImpl implements ReviewService {
     }
 
     @Override
-    public ResponsePopoverDTO readSummaryByToiletORGarbageBin(boolean type, Long id) {
+    public ResponseReviewPageDTO readSummaryByToiletORGarbageBin(boolean type, Long id) {
+        GarbageBinEntity garbageBin = type ? this.garbageBinDAO.readByIdGarbageBin(id) : null;
+        ToiletEntity toilet = !type ? this.toiletDAO.readByIdToilet(id) : null;
+        String name = type ? garbageBin.getName() : toilet.getName();
+
+        List<ReviewEntity> entities = type ?
+                this.reviewDAO.readAllReviewByGarbageBin(garbageBin) :
+                this.reviewDAO.readAllReviewByToilet(toilet);
+        List<ReviewEntity> resultEntity = new ArrayList<>();
+
+        for(ReviewEntity e : entities){
+            if(resultEntity.size() == 2) break;
+            resultEntity.add(e);
+        }
+
+        return ResponseReviewPageDTO.builder()
+                .name(name)
+                .rate(this.getAvgRate(entities))
+                .Tag(this.getMostTag(entities))
+                .recentReview(ReviewEntity.toResponseDTOList(resultEntity))
+                .build();
+    }
+
+    @Override
+    public ResponseReviewPageDTO readAllReviewPageDataByToieltOrGarbageBin(boolean type, Long id) {
         GarbageBinEntity garbageBin = type ? this.garbageBinDAO.readByIdGarbageBin(id) : null;
         ToiletEntity toilet = !type ? this.toiletDAO.readByIdToilet(id) : null;
         String name = type ? garbageBin.getName() : toilet.getName();
@@ -54,40 +110,11 @@ public class ReviewServiceImpl implements ReviewService {
                 this.reviewDAO.readAllReviewByGarbageBin(garbageBin) :
                 this.reviewDAO.readAllReviewByToilet(toilet);
 
-        Double avgRate = 0.0;
-        Map<String, Integer> countTag = new HashMap<>();
-        for(ReviewEntity e : entities){
-            avgRate += e.getRate();
-            for(String s : e.getTag()){
-                countTag.put(s, countTag.containsKey(s) ? countTag.get(s)+1 : 1);
-            }
-        }
-
-        List<String> resultTag = new ArrayList<>();
-        List<ReviewEntity> resultEntity = new ArrayList<>();
-        List<String> sort = new ArrayList<>(countTag.keySet());
-        Collections.sort(sort, (o1, o2) -> {
-            return  countTag.get(o2)- countTag.get(o1);
-        });
-
-
-        for(String s : sort){
-            if(resultTag.size() == 3) break;
-            resultTag.add(s);
-        }
-
-        avgRate /= entities.size() == 0 ? 1 : entities.size();
-
-        for(ReviewEntity e : entities){
-            if(resultEntity.size() == 2) break;
-            resultEntity.add(e);
-        }
-
-        return ResponsePopoverDTO.builder()
+        return ResponseReviewPageDTO.builder()
                 .name(name)
-                .rate(avgRate)
-                .Tag(resultTag)
-                .recentReview(ReviewEntity.toResponseDTOList(resultEntity))
+                .rate(this.getAvgRate(entities))
+                .Tag(this.getMostTag(entities))
+                .recentReview(ReviewEntity.toResponseDTOList(entities))
                 .build();
     }
 
